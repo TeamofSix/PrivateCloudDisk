@@ -32,7 +32,6 @@ public class UDPClientA {
 				client.receive(packet);
 				String receiveMessage = new String(packet.getData(),0,packet.getLength());
 				System.out.println(receiveMessage);
-				
 				int port = packet.getPort();
 				InetAddress address = packet.getAddress();
 				String reportMessage = "tks";
@@ -47,22 +46,10 @@ public class UDPClientA {
 	//回复内容
 	private static void sendMessage(String reportMessage, int port,InetAddress address, DatagramSocket client) {
 		try{
-//			try{
-//				//DatagramSocket server = new DatagramSocket(6666);
-//				byte[] buf = new byte[1024];
-//				DatagramPacket packet = new DatagramPacket(buf,buf.length);
-//				for(;;){
-//					server.receive(packet);
-//					String receiveMessage = new String(packet.getData(),0,packet.getLength());
-//					System.out.println(receiveMessage);
-//				}
-//			}catch(Exception e){
-//				e.printStackTrace();
-//			}
 			byte[] sendBuf = reportMessage.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendBuf, sendBuf.length,address,port);
 			client.send(sendPacket);
-			System.out.println("消息发送成功!");
+			System.out.println("消息发送成功");
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -28,7 +28,6 @@ public class UDPServer {
 					port132 = packet.getPort();
 					address132 = packet.getAddress();
 					sendMessage132 = "host:" + address132.getHostAddress() + ",port:" + port132;
-					System.out.println(sendMessage132);
 				}
 				
 				//接收到clientB
@@ -36,7 +35,6 @@ public class UDPServer {
 					port129 = packet.getPort();
 					address129 = packet.getAddress();
 					sendMessage129 = "host:" + address129.getHostAddress() + ",port:" + port129;
-					System.out.println(sendMessage129);
 				}
 				
 				//两个都接收到后分别A、B地址交换互发
