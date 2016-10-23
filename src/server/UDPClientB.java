@@ -10,9 +10,10 @@ public class UDPClientB {
 	public static void main(String[] args){
 		try{
 			//向server发起请求
-			SocketAddress target = new InetSocketAddress("210.41.96.172",2008);
+			SocketAddress target = new InetSocketAddress("115.159.34.11",2008);
+			System.out.println(target);
 			DatagramSocket client = new DatagramSocket();
-			String message = "I am UDPClientB 192.168.85.129";
+			String message = "I am UDPClientB 210.41.100.104";
 			byte[] sendbuf = message.getBytes();
 			DatagramPacket pack = new DatagramPacket(sendbuf,sendbuf.length,target);
 			client.send(pack);
@@ -26,7 +27,10 @@ public class UDPClientB {
 			String host = params[0].substring(5);
 			String port = params[1].substring(5);
 			System.out.println(host + ":" + port);
-			sendMessage(host,port,client);
+			int myport = client.getLocalPort();
+			client.close();
+			DatagramSocket client2 = new DatagramSocket(myport);
+			sendMessage(host,port,client2);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -36,6 +40,7 @@ public class UDPClientB {
 	private static void sendMessage(String host,String port,DatagramSocket client){
 		try{
 			SocketAddress target = new InetSocketAddress(host,Integer.parseInt(port));
+			System.out.println(target);
 			for(;;){
 				//String message = "I am master 192.168.85.129 count test";
 				String message = "first time I am Client B" + host + port;
@@ -58,14 +63,13 @@ public class UDPClientB {
 				DatagramPacket recpack = new DatagramPacket(buf, buf.length);
 				client.receive(recpack);
 				String receiveMessage = new String(recpack.getData(),0,recpack.getLength());
-				System.out.println(receiveMessage);
+				System.out.println("receive A:" + receiveMessage);
 				
 				//记得重新收地址与端口，然后在以新地址发送内容到ClientA
 				int port = recpack.getPort();
 				InetAddress address = recpack.getAddress();
 				//String reportMessage = "I am master 192.168.85.129 count test";
 				String reportMessage = "second time I am Client B" + address + port;
-				
 				//发送消息
 				sendMessage(reportMessage,port,address,client);
 			}
