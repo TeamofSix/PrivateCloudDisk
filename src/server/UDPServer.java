@@ -63,10 +63,10 @@ public class UDPServer {
 				if (!clientAaddrportInfo.equals("") && !clientBaddrportInfo.equals("")) {
 					// 判断两个client是否位于同一个NAT设备下
 					if (addressA.equals(addressB)) {
-						InetAddress addressLocalA = IPUtils.stringToInetAddress(localAip);
-						InetAddress addressLocalB = IPUtils.stringToInetAddress(localBip);
-						send2A(clientBaddrportInfo, portA, addressLocalA, server);
-						send2B(clientAaddrportInfo, portB, addressLocalB, server);
+						clientAaddrportInfo = "host:" + localAip+ ",port:" + portA;
+						clientBaddrportInfo = "host:" + localBip+ ",port:" + portB;
+						send2A(clientBaddrportInfo, portA, addressA, server);
+						send2B(clientAaddrportInfo, portB, addressB, server);
 					}else{
 						send2A(clientBaddrportInfo, portA, addressA, server);
 						send2B(clientAaddrportInfo, portB, addressB, server);
@@ -101,7 +101,7 @@ public class UDPServer {
 			DatagramPacket sendPacket = new DatagramPacket(sendBuf,
 					sendBuf.length, address129, port129);
 			server.send(sendPacket);
-			System.out.println("消息发送成功");
+			System.out.println("消息发送成功   ");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

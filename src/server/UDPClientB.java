@@ -77,7 +77,6 @@ public class UDPClientB {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
 	}
 
 	private static void sendMessage(String reportMessage, int port,

@@ -12,8 +12,10 @@ public class UDPClientA {
 			// 向server发起请求
 			SocketAddress target = new InetSocketAddress("115.159.34.11", 2008);
 			DatagramSocket client = new DatagramSocket();
+			int localPort = client.getLocalPort();
 			String localIP = IPUtils.getCurrenIP();
 			String message = "I am UDPClientA,"+localIP;
+			System.out.println(message);
 			byte[] sendbuf = message.getBytes();
 			DatagramPacket pack = new DatagramPacket(sendbuf, sendbuf.length,
 					target);
@@ -42,7 +44,7 @@ public class UDPClientA {
 				String[] params = receiveMessage.split(",");
 				String Bhost = params[0].substring(5);
 				String Bport = params[1].substring(5);
-
+				System.out.println(Bhost+":"+Bport);
 				// 获取接收到请求内容后并取到地址与端口，然后用获取到的地址与端口回复
 				sendMessage(reportMessage, port, address, client);
 				sendMessage(Bhost, Bport, client);
@@ -56,19 +58,6 @@ public class UDPClientA {
 	private static void sendMessage(String reportMessage, int port,
 			InetAddress address, DatagramSocket client) {
 		try {
-			// try{
-			// // DatagramSocket server = new DatagramSocket(6666);
-			// byte[] buf = new byte[1024];
-			// DatagramPacket packet = new DatagramPacket(buf,buf.length);
-			// for(;;){
-			// client.receive(packet);
-			// String receiveMessage = new
-			// String(packet.getData(),0,packet.getLength());
-			// System.out.println(receiveMessage);
-			// }
-			// }catch(Exception e){
-			// e.printStackTrace();
-			// }
 			byte[] sendBuf = reportMessage.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendBuf,
 					sendBuf.length, address, port);
@@ -79,7 +68,7 @@ public class UDPClientA {
 		}
 	}
 
-	// 向UDPClientA发起请求(在NAT上打孔)
+	// 向UDPClientB发起请求(在NAT上打孔)
 	private static void sendMessage(String host, String port,
 			DatagramSocket client) {
 		try {
@@ -92,7 +81,7 @@ public class UDPClientA {
 						sendbuf.length, target);
 				System.out.println(pack);
 				client.send(pack);
-				// 接受UDPClientA的回复
+				// 接受UDPClientB的回复
 				receive(client);
 //			}
 		} catch (Exception e) {
