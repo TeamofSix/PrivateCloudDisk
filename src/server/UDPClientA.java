@@ -12,7 +12,8 @@ public class UDPClientA {
 			// 向server发起请求
 			SocketAddress target = new InetSocketAddress("115.159.34.11", 2008);
 			DatagramSocket client = new DatagramSocket();
-			String message = "I am UDPClientA 192.168.85.132";
+			String localIP = IPUtils.getCurrenIP();
+			String message = "I am UDPClientA,"+localIP;
 			byte[] sendbuf = message.getBytes();
 			DatagramPacket pack = new DatagramPacket(sendbuf, sendbuf.length,
 					target);

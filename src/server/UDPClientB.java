@@ -13,7 +13,8 @@ public class UDPClientB {
 			SocketAddress target = new InetSocketAddress("115.159.34.11",2008);
 			System.out.println(target);
 			DatagramSocket client = new DatagramSocket();
-			String message = "I am UDPClientB 210.41.100.104";
+			String localIP = IPUtils.getCurrenIP();
+			String message = "I am UDPClientB,"+localIP;
 			byte[] sendbuf = message.getBytes();
 			DatagramPacket pack = new DatagramPacket(sendbuf,sendbuf.length,target);
 			client.send(pack);
