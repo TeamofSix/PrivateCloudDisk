@@ -14,8 +14,9 @@ public class test {
 
 	public static void main(String[] args) {
 		FileCompare fc = new FileCompare();
-		fc.NodeCompare(FileTree.GetRootNode(FileTree.GetValue(FileTreeUtils.CreateHM(new File("res/test1")))),
-				FileTree.GetRootNode(FileTree.GetValue(FileTreeUtils.CreateHM(new File("res/test2")))));
-		DataParsing.Parsing(fc.privateHM);
+		fc.NodeCompare(FileTree.GetRootNode(FileTree.GetValue(FileTreeUtils.CreateHM(new File("D:\\Program Files\\eclipse\\workspace\\FileTree\\res\\test1")))),
+				FileTree.GetRootNode(FileTree.GetValue(FileTreeUtils.CreateHM(new File("D:\\test1")))));
+	DataParsing.Parsing(fc.privateHM);
+		
 	}
 }

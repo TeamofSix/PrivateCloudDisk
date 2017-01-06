@@ -21,7 +21,7 @@ public class FileCompare {
 									&& node2.ChildNode[j].isDirectory == false
 									&& node1.ChildNode[i].MD5.equals(node2.ChildNode[j].MD5)) {// 文件名不同，文件内容相同
 								node2.ChildNode[j].Operation = "modify";
-								privateHM.put(node1.ChildNode[i].crc_32, node2.ChildNode[j]);
+								privateHM.put(node1.ChildNode[i].NodePath, node2.ChildNode[j]);
 								exit1 = true;
 							}
 						}
@@ -31,7 +31,7 @@ public class FileCompare {
 							} else {
 								node1.ChildNode[i].Operation = "add";
 							}
-							privateHM.put(node1.ChildNode[i].crc_32, node1.ChildNode[i]);
+							privateHM.put(node1.ChildNode[i].NodePath, node1.ChildNode[i]);
 						}
 					}
 					for (i = 0; i < node2.ChildNode.length; i++) {
@@ -44,13 +44,13 @@ public class FileCompare {
 									&& node2.ChildNode[i].isDirectory == false
 									&& node1.ChildNode[j].MD5.equals(node2.ChildNode[i].MD5)) {// 文件名不同，文件内容相同
 								node2.ChildNode[i].Operation = "modify";
-								privateHM.put(node1.ChildNode[j].crc_32, node2.ChildNode[i]);
+								privateHM.put(node1.ChildNode[j].NodePath, node2.ChildNode[i]);
 								exit2 = true;
 							}
 						}
 						if (exit2 == false) {// node1不存在，node2存在
 							node2.ChildNode[i].Operation = "delete";
-							privateHM.put(node2.ChildNode[i].crc_32, node2.ChildNode[i]);
+							privateHM.put(node2.ChildNode[i].NodePath, node2.ChildNode[i]);
 						}
 					}
 				} else { // 文件类型
@@ -59,7 +59,7 @@ public class FileCompare {
 					} else { // 文件内容不同
 						node1.Operation = "replace";
 					}
-					privateHM.put(node1.crc_32, node1);
+					privateHM.put(node1.NodePath, node1);
 				}
 			}
 		}

@@ -23,6 +23,7 @@ public class FileTree {
 						// 递归调用
 						node.ChildNode[i] = new Node();
 						node.ChildNode[i].ParentNode = node;
+						node.ChildNode[i].NodeParentName = node.NodePath;
 						TraverseFile(node.fileArray[i], HM, node.ChildNode[i]);
 					}
 				}
@@ -30,6 +31,13 @@ public class FileTree {
 				// 创建文件节点
 				node.setFileNode(f);
 			}
+			System.out.println("NodeName: "+node.NodeName);
+			System.out.println("NodeParentName: "+node.NodeParentName);
+			System.out.println("NodePath: "+node.NodePath);
+			System.out.println("NodeAbsolutePath: "+node.NodeAbsolutePath);
+			System.out.println("MD5: "+node.MD5);
+			System.out.println("crc_32: "+node.crc_32);
+			System.out.println("--------------------------");
 			HM.put(node.crc_32, node);
 		}
 	}

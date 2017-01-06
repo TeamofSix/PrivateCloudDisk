@@ -22,12 +22,12 @@ public class DataParsing {
 			System.out.println("\nkey: "+ key +"\tval: " + val);
 			System.out.println("Path: "+ val.NodePath +"\nOperation: " + val.Operation);
 			// 按照解析出来的操作值进行选择性操作
-//			switch (val.Operation) {
-//			case "equal":
-//				break;
-//			case "add":
-//				
-//				break;
+			switch (val.Operation) {
+			case "equal":
+				break;
+			case "add":
+				//
+				break;
 //			case "replace":
 //				String s;
 //				File fileSource = (File) key;
@@ -70,20 +70,21 @@ public class DataParsing {
 //					e.printStackTrace();
 //				}
 //				break;
-//			case "modify":
-//				File file = new File(val.NodePath);
-//				file.renameTo(((File) key));
-//				break;
-//			case "delete":
-//				new File(val.NodePath).delete();
-//				break;
-//			case "makdirs":
-//				((File) key).mkdirs();
-//				break;
-//			default:
-//				break;
-//			}
-			
+			case "modify":
+				String strTemp = val.NodeAbsolutePath.substring(0,val.NodeAbsolutePath.indexOf(val.NodePath))+key.toString();
+				File file1 = new File(val.NodeAbsolutePath);
+				File file2 = new File(strTemp);
+				file1.renameTo(file2);
+				break;
+			case "delete":
+				new File(val.NodeAbsolutePath).delete();
+				break;
+			case "makdirs":
+				new File(val.NodePath).getParentFile().mkdirs();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
